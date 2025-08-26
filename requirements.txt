@@ -125,3 +125,12 @@ ruamel.yaml
 
 # downgrade numpy to avoid compatibility issues with ultralytics
 numpy<2.0
+
+
+#for dotenv
+python-dotenv
+
+
+#for fastapi
+fastapi
+uvicorn
