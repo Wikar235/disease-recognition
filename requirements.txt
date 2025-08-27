@@ -120,3 +120,11 @@ wcwidth==0.2.13
 webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
+kagglehub
+
+#added for yolo model and yaml file process
+ultralytics
+ruamel.yaml
+
+# downgrade numpy to avoid compatibility issues with ultralytics
+numpy<2.0
