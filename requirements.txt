@@ -63,7 +63,7 @@ nbconvert==7.16.6
 nbformat==5.10.4
 nest-asyncio==1.6.0
 notebook_shim==0.2.4
-numpy==2.2.6
+#numpy==2.2.6
 overrides==7.7.0
 packaging==25.0
 pandas==2.3.2
@@ -124,7 +124,21 @@ kagglehub
 
 #added for yolo model and yaml file process
 ultralytics
-ruamel.yaml
+#ruamel.yaml
 
 # downgrade numpy to avoid compatibility issues with ultralytics
 numpy<2.0
+
+#for dotenv
+python-dotenv
+
+#for fastapi
+fastapi
+uvicorn
+
+
+# tests
+pytest-asyncio
+
+#for upload file
+python-multipart
