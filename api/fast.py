@@ -41,13 +41,13 @@ async def predict_image(file: UploadFile = File(...)):
         f.write(contents)
 
     # Run prediction on the uploaded file
-    predictions = run_prediction(temp_path)
+    detections = run_prediction(temp_path)
 
     # Print results in server console
-    print(f"Prediction Results for {file.filename}: {predictions}")
+    print(f"Prediction Results for {file.filename}: {detections}")
 
     # Return results as JSON
     return {
         "filename": file.filename,
-        "prediction": predictions
+        "detections": detections,
     }

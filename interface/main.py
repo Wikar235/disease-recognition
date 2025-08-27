@@ -1,15 +1,11 @@
 import os
-from src.models.params import *
-from src.data import load_data
-from src.models.predict import load_model, predict
-from src.data.load_data import download_dataset, get_best_model_path
+from src.models.params import SAMPLE_IMAGE
+from src.models.predict import load_model, predict, PredictionResult
 
 # Load the data and model at startup
-dataset_path = download_dataset()
-model_path = get_best_model_path(dataset_path)
-model = load_model(model_path)
+model = load_model("best.pt")
 
-def run_prediction(image_path: str):
+def run_prediction(image_path: str) -> PredictionResult:
     """
     Runs prediction on a given image path.
     Returns a list of dicts, each containing:
@@ -21,18 +17,8 @@ def run_prediction(image_path: str):
     full_path = os.path.join(image_path) if not os.path.isabs(image_path) else image_path
 
     # Run YOLO prediction
-    detections = predict(model, full_path)
+    return predict(model, full_path)
 
-    # Ensure JSON-serializable output
-    result = []
-    for det in detections:
-        result.append({
-            "class": det["class"],
-            "confidence": det["confidence"],
-            "bbox": det["bbox"]
-        })
-
-    return result
 
 if __name__ == "__main__":
     # For testing without FastAPI
