@@ -30,11 +30,6 @@ DTYPES_PROCESSED = np.float32
 # EVALUATION_START_DATE = os.environ.get("EVALUATION_START_DATE")
 ################## VALIDATIONS #################
 
-# env_valid_options = dict(
-#     DATA_SIZE=["1k", "200k", "all"],
-#     MODEL_TARGET=["local", "gcs", "mlflow"],
-# )
-
 # def validate_env_value(env, valid_options):
 #     env_value = os.environ[env]
 #     if env_value not in valid_options:

@@ -31,7 +31,7 @@ COPY test ./test
 # Copy environment variables file
 COPY .env .
 
-CMD ["uvicorn", "api.fast:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/bin/bash", "-c", "uvicorn api.fast:app --host 0.0.0.0 --port ${PORT:-8000}"]
 
 # To upload a file to the API, use the following curl command:
 # curl -X POST http://localhost:8000/predict -F file=@/path/to/your/image.jpg
