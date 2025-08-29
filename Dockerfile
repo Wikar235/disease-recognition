@@ -1,39 +1,32 @@
-# Use NVIDIA PyTorch image (GPU-ready)
-FROM python:3.10
+# ===============================
+# Dockerfile for Dental Recognition API
+# ===============================
 
-EXPOSE 8000
-
-RUN apt-get update && apt-get install -y \
-    libgl1 \
-    && rm -rf /var/lib/apt/lists/*
+# Use Ultralytics base image (CPU version for smaller size)
+FROM ultralytics/ultralytics:latest-cpu
 
 # Set working directory
 WORKDIR /app
 
-# Copy requirements file first for better caching
-COPY requirements.txt .
+# Install required Python packages
+# Includes fastapi, uvicorn, python-dotenv, and dill (needed by Ultralytics)
+RUN pip install --no-cache-dir \
+    fastapi \
+    "uvicorn[standard]" \
+    python-dotenv \
+    python-multipart \
+    dill
 
-# Install dependencies
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
 
-# Copy the model file
-COPY best.pt .
-
-# Copy your Python scripts
+# Copy your application code into container
 COPY interface ./interface
 COPY src ./src
 COPY api ./api
-
-# Copy test images for the /test-predict endpoint
-COPY test ./test
-
-# Copy environment variables file
+COPY best.pt .
 COPY .env .
 
-CMD ["/bin/bash", "-c", "uvicorn api.fast:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Expose the API port
+EXPOSE 8000
 
-# To upload a file to the API, use the following curl command:
-# curl -X POST http://localhost:8000/predict -F file=@/path/to/your/image.jpg
-# Or with xh (simpler):
-# xh POST --form http://localhost:8000/predict file@/path/to/your/image.jpg
+# Run FastAPI using Uvicorn
+CMD ["uvicorn", "api.fast:app", "--host", "0.0.0.0", "--port", "8000"]
