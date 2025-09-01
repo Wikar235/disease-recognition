@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from interface.main import run_prediction
+from api.main import run_prediction
 
 app = FastAPI()
 
@@ -17,16 +17,6 @@ app.add_middleware(
 def root():
     return {"greeting": "Hello Teeth"}
 
-@app.get("/test-predict")
-def test_predict():
-    """
-    Test prediction without uploading a file.
-    Uses SAMPLE_IMAGE from main.py
-    """
-    from src.models.params import SAMPLE_IMAGE
-    predictions = run_prediction(SAMPLE_IMAGE)
-    print("Test Prediction Results:", predictions)
-    return {"filename": SAMPLE_IMAGE, "prediction": predictions}
 
 @app.post("/predict")
 async def predict_image(file: UploadFile = File(...)):

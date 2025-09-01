@@ -22,15 +22,6 @@ class PredictionResult:
     mask: list[MaskDetection]
 
 
-def load_model(model_path: str):
-    """
-    Load a YOLO model from the specified path.
-    """
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model not found at {model_path}")
-    return YOLO(model_path)
-
-
 def predict(model, image_path: str) -> PredictionResult:
     """
     Run inference on a single image and return detections.
