@@ -1,9 +1,13 @@
 __pycache__/
 raw_data/
-*.jpeg
-*.jpg
-*.txt
-*.json
+.env
+.tmp
+
+.DS_Store
+__MACOSX
+
+.pytest_cache
+__pycache__
 .python-version
 *.pyc
 *.pt
